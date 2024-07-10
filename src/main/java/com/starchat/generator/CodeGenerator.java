@@ -1,9 +1,9 @@
 package com.starchat.generator;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -19,13 +19,11 @@ public class CodeGenerator {
             .Builder("jdbc:mysql://localhost:3306/starchat", "jack", "123456")
             .schema("starchat");
 
-    private static final String PROJECT_PATH = Paths.get(System.getProperty("user.dir")).toString();
-
     public static void main(String[] args) {
         FastAutoGenerator.create(DATA_SOURCE_CONFIG)
                 .globalConfig(builder -> builder
                         .author("Jack")
-                        .outputDir(PROJECT_PATH + "/src/main/java")
+                        .outputDir(Paths.get(System.getProperty("user.dir")) + "/src/main/java")
                         .disableOpenDir()
                 )
                 .packageConfig(builder -> builder
