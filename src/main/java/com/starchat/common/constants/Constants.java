@@ -31,4 +31,10 @@ public class Constants {
         public static final long EXPIRE_TIME_2_DAYS = 172800;
         public static final long EXPIRE_TIME_1_WEEK = 604800;
     }
+
+    @UtilityClass
+    public static final class Captcha{
+        public static final String CHECK_CODE = "checkCode";
+        public static final String CHECK_CODE_KEY = "checkCodeKey";
+    }
 }

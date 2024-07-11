@@ -1,5 +1,6 @@
 package com.starchat.controller;
 
+import com.google.common.collect.ImmutableMap;
 import com.starchat.common.constants.Constants;
 import com.starchat.service.redis.RedisService;
 import com.starchat.entity.vo.ResVO;
@@ -35,12 +36,14 @@ public class AccountController extends BaseController {
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(100, 40);
         String code = captcha.text();
         String checkCodeKey = UUID.randomUUID().toString();
-        redisService.setWithExpire(Constants.Redis.KEY_CHECK_CODE + checkCodeKey, code,
-                Constants.Redis.EXPIRE_TIME_1_MINUTE);
+        String redisKey = Constants.Redis.KEY_CHECK_CODE + checkCodeKey;
+        long expireTime = Constants.Redis.EXPIRE_TIME_1_MINUTE;
+        redisService.setWithExpire(redisKey, code, expireTime);
         String checkCodeBase64 = captcha.toBase64();
-        Map<String, String> result = new HashMap<>();
-        result.put("checkCode", checkCodeBase64);
-        result.put("checkCodeKey", checkCodeKey);
+        Map<String, String> result = ImmutableMap.of(
+                Constants.Captcha.CHECK_CODE, checkCodeBase64,
+                Constants.Captcha.CHECK_CODE_KEY, checkCodeKey
+        );
         return success(result);
     }
 }
