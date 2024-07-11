@@ -1,8 +1,8 @@
 package com.starchat.controller;
 
 import com.starchat.common.constants.Constants;
+import com.starchat.service.redis.RedisService;
 import com.starchat.entity.vo.ResVO;
-import com.starchat.utils.RedisUtil;
 import com.wf.captcha.ArithmeticCaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -23,11 +23,11 @@ import java.util.UUID;
 @RequestMapping("account")
 public class AccountController extends BaseController {
 
-    private final RedisUtil redisUtil;
+    private final RedisService redisService;
 
     @Autowired
-    public AccountController(RedisUtil redisUtil) {
-        this.redisUtil = redisUtil;
+    public AccountController(RedisService redisService) {
+        this.redisService = redisService;
     }
 
     @RequestMapping("checkCode")
@@ -35,7 +35,7 @@ public class AccountController extends BaseController {
         ArithmeticCaptcha captcha = new ArithmeticCaptcha(100, 40);
         String code = captcha.text();
         String checkCodeKey = UUID.randomUUID().toString();
-        redisUtil.setWithExpire(Constants.Redis.KEY_CHECK_CODE + checkCodeKey, code,
+        redisService.setWithExpire(Constants.Redis.KEY_CHECK_CODE + checkCodeKey, code,
                 Constants.Redis.EXPIRE_TIME_1_MINUTE);
         String checkCodeBase64 = captcha.toBase64();
         Map<String, String> result = new HashMap<>();

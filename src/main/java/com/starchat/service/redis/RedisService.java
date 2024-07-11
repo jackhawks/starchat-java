@@ -1,21 +1,21 @@
-package com.starchat.utils;
+package com.starchat.service.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-@Component
-public class RedisUtil {
+@Service
+public class RedisService {
 
     private final StringRedisTemplate stringRedisTemplate;
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public RedisUtil(StringRedisTemplate stringRedisTemplate, RedisTemplate<String, Object> redisTemplate) {
+    public RedisService(StringRedisTemplate stringRedisTemplate, RedisTemplate<String, Object> redisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
         this.redisTemplate = redisTemplate;
     }

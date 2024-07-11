@@ -1,4 +1,4 @@
-package com.starchat.common.config;
+package com.starchat.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
