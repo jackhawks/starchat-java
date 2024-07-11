@@ -1,7 +1,7 @@
 package com.starchat.mapper;
 
-import com.starchat.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.starchat.entity.User;
 
 /**
  * User Mapper Interface
@@ -10,4 +10,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UserMapper extends BaseMapper<User> {
 
+    User selectByEmail(String email);
 }

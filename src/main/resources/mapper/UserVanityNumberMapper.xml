@@ -2,4 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.starchat.mapper.UserVanityNumberMapper">
 
+    <resultMap id="BaseResultMap" type="com.starchat.entity.UserVanityNumber">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="email" property="email" />
+        <result column="user_status" property="userStatus" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, email, user_status
+    </sql>
+
 </mapper>

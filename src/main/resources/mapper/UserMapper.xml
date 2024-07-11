@@ -2,4 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.starchat.mapper.UserMapper">
 
+    <resultMap id="BaseResultMap" type="com.starchat.entity.User">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="password" property="password" />
+        <result column="nickname" property="nickname" />
+        <result column="email" property="email" />
+        <result column="bio" property="bio" />
+        <result column="region_name" property="regionName" />
+        <result column="region_code" property="regionCode" />
+        <result column="gender" property="gender" />
+        <result column="join_type" property="joinType" />
+        <result column="user_status" property="userStatus" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="last_offline_time" property="lastOfflineTime" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, password, nickname, email, bio, region_name, region_code, gender, join_type, user_status, last_login_time, last_offline_time, create_time, update_time
+    </sql>
+
+    <select id="selectByEmail" resultType="com.starchat.entity.User">
+        select <include refid="Base_Column_List"/> from user where email = #{email} limit 1
+    </select>
+
 </mapper>

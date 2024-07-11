@@ -52,6 +52,8 @@ public class CodeGenerator {
                                     .formatServiceImplFileName("%sServiceImp");
                             builder.mapperBuilder()
 //                                    .enableFileOverride()
+                                    .enableBaseResultMap()
+                                    .enableBaseColumnList()
                                     .mapperTemplate("/templates/generator/mapper.java")
                                     .mapperXmlTemplate("/templates/generator/mapper.xml");
                         }
