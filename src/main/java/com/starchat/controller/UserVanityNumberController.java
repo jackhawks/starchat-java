@@ -2,6 +2,7 @@ package com.starchat.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import com.starchat.controller.BaseController;
 
 /**
  * UserVanityNumber Controller
@@ -10,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/userVanityNumber")
-public class UserVanityNumberController {
+public class UserVanityNumberController extends BaseController {
 
 }

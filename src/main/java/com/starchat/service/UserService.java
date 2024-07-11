@@ -8,6 +8,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  *
  * @author Jack
  */
-public interface IUserService extends IService<User> {
+public interface UserService extends IService<User> {
 
 }

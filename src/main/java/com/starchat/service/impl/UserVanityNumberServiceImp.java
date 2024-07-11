@@ -2,7 +2,7 @@ package com.starchat.service.impl;
 
 import com.starchat.entity.UserVanityNumber;
 import com.starchat.mapper.UserVanityNumberMapper;
-import com.starchat.service.IUserVanityNumberService;
+import com.starchat.service.UserVanityNumberService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
  * @author Jack
  */
 @Service
-public class UserVanityNumberServiceImpl extends ServiceImpl<UserVanityNumberMapper, UserVanityNumber> implements IUserVanityNumberService {
+public class UserVanityNumberServiceImp extends ServiceImpl<UserVanityNumberMapper, UserVanityNumber> implements UserVanityNumberService {
 
 }

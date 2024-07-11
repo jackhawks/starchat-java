@@ -25,11 +25,15 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
     implementation("com.mysql:mysql-connector-j:9.0.0")
     implementation("com.baomidou:mybatis-plus-spring-boot3-starter:3.5.7")
     implementation("com.baomidou:mybatis-plus-generator:3.5.7")
     implementation("org.freemarker:freemarker:2.3.33")
     implementation("com.google.guava:guava:33.2.1-jre")
+    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.1")
+    implementation("com.github.whvcse:easy-captcha:1.6.2")
+    implementation("org.openjdk.nashorn:nashorn-core:15.4")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

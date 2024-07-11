@@ -1,5 +1,5 @@
 server:
-  port: 9000
+  port: 8000
   servlet:
     context-path: /api
 spring:
@@ -9,6 +9,15 @@ spring:
     url: jdbc:mysql://localhost:3306/starchat
     username: jack
     password: 123456
+  data:
+    redis:
+      host: localhost
+      port: 6379
 mybatis-plus:
   global-config:
     banner: false
+decorator:
+  datasource:
+    p6spy:
+      # 日志格式
+      log-format: "\ntime:%(executionTime) || sql:%(sql)\n"

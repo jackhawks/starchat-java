@@ -1,9 +1,10 @@
-package com.starchat.generator;
+package com.starchat.common.generator;
 
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.starchat.controller.BaseController;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -32,24 +33,27 @@ public class CodeGenerator {
                 )
                 .strategyConfig(builder -> {
                             builder.entityBuilder()
+//                                    .enableFileOverride()
                                     .javaTemplate("/templates/generator/entity.java")
-                                    .enableFileOverride()
                                     .enableLombok()
                                     .disableSerialVersionUID()
                                     .enableChainModel()
                                     .enableActiveRecord();
                             builder.controllerBuilder()
+//                                    .enableFileOverride()
                                     .template("/templates/generator/controller.java")
-                                    .enableFileOverride()
+                                    .superClass(BaseController.class)
                                     .enableRestStyle();
                             builder.serviceBuilder()
+//                                    .enableFileOverride()
                                     .serviceTemplate("/templates/generator/service.java")
                                     .serviceImplTemplate("/templates/generator/serviceImpl.java")
-                                    .enableFileOverride();
+                                    .formatServiceFileName("%sService")
+                                    .formatServiceImplFileName("%sServiceImp");
                             builder.mapperBuilder()
+//                                    .enableFileOverride()
                                     .mapperTemplate("/templates/generator/mapper.java")
-                                    .mapperXmlTemplate("/templates/generator/mapper.xml")
-                                    .enableFileOverride();
+                                    .mapperXmlTemplate("/templates/generator/mapper.xml");
                         }
                 )
                 .templateEngine(new FreemarkerTemplateEngine())
