@@ -3,8 +3,10 @@ package com.starchat.common.generator;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.starchat.controller.BaseController;
+import org.apache.ibatis.type.JdbcType;
 
 import java.nio.file.Paths;
 import java.util.Collections;
@@ -27,13 +29,19 @@ public class CodeGenerator {
                         .outputDir(Paths.get(System.getProperty("user.dir")) + "/src/main/java")
                         .disableOpenDir()
                 )
+                .dataSourceConfig(builder -> builder.typeConvertHandler((_, typeRegistry, metaInfo) -> {
+                    if (metaInfo.getJdbcType() == JdbcType.TINYINT) {
+                        return DbColumnType.INTEGER;
+                    }
+                    return typeRegistry.getColumnType(metaInfo);
+                }))
                 .packageConfig(builder -> builder
                         .parent("com.starchat")
                         .pathInfo(Collections.singletonMap(OutputFile.xml, "src/main/resources/mapper"))
                 )
                 .strategyConfig(builder -> {
                             builder.entityBuilder()
-//                                    .enableFileOverride()
+                                    .enableFileOverride()
                                     .javaTemplate("/templates/generator/entity.java")
                                     .enableLombok()
                                     .disableSerialVersionUID()

@@ -63,17 +63,17 @@ public class User extends Model<User> {
     /**
      * 性别 (0: 女, 1: 男)
      */
-    private Byte gender;
+    private Integer gender;
 
     /**
      * 加入类型 (0: 直接加入, 1: 同意后加好友)
      */
-    private Byte joinType;
+    private Integer joinType;
 
     /**
      * 用户状态
      */
-    private Byte userStatus;
+    private Integer userStatus;
 
     /**
      * 最后登录时间

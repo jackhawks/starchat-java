@@ -39,7 +39,7 @@ public class UserVanityNumber extends Model<UserVanityNumber> {
     /**
      * 用户状态 (0: 未使用, 1: 已使用)
      */
-    private Byte userStatus;
+    private Integer userStatus;
 
     @Override
     public Serializable pkVal() {

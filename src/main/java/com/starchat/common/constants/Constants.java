@@ -33,8 +33,13 @@ public class Constants {
     }
 
     @UtilityClass
-    public static final class Captcha{
+    public static final class Captcha {
         public static final String CHECK_CODE = "checkCode";
         public static final String CHECK_CODE_KEY = "checkCodeKey";
+    }
+
+    @UtilityClass
+    public static final class Length {
+        public static final int _11 = 11;
     }
 }
