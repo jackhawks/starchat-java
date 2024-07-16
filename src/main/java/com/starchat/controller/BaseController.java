@@ -1,9 +1,11 @@
 package com.starchat.controller;
 
+import com.starchat.common.constants.Constants;
+import com.starchat.common.enums.ErrorCodeEnum;
+import com.starchat.common.enums.ResCodeEnum;
 import com.starchat.entity.vo.ResVO;
 
 import java.util.Collections;
-import java.util.Map;
 
 /**
  * Base Controller
@@ -12,45 +14,37 @@ import java.util.Map;
  */
 public class BaseController {
 
-    protected <T> ResVO<T> success(T data) {
-        return new ResVO<>(200, true, "请求成功", "00000", "一切 ok", data);
+    protected ResVO success() {
+        return success(Collections.emptyMap());
     }
 
-    protected ResVO<Map<String, Object>> success() {
-        return new ResVO<>(200, true, "请求成功", "00000", "一切 ok", Collections.emptyMap());
+    protected ResVO success(Object data) {
+        return new ResVO()
+                .setCode(ResCodeEnum.CODE_200.getCode())
+                .setStatus(Constants.Status.TRUE)
+                .setUserTip(ResCodeEnum.CODE_200.getMessage())
+                .setErrorCode(ErrorCodeEnum.ERROR_00000.getCode())
+                .setErrorMessage(ErrorCodeEnum.ERROR_00000.getDescription())
+                .setData(data);
     }
 
-    protected ResVO<Map<String, Object>> error(int httpCode, String errorCode, String errorMessage, String userTip) {
-        return new ResVO<>(httpCode, false, userTip, errorCode, errorMessage, Collections.emptyMap());
+    protected ResVO error() {
+        return new ResVO()
+                .setCode(ResCodeEnum.CODE_500.getCode())
+                .setStatus(Constants.Status.FALSE)
+                .setUserTip(ResCodeEnum.CODE_500.getMessage())
+                .setErrorCode(ErrorCodeEnum.ERROR_A0001.getCode())
+                .setErrorMessage(ErrorCodeEnum.ERROR_A0001.getDescription())
+                .setData(Collections.emptyMap());
     }
 
-    // 400 Bad Request
-    protected ResVO<Map<String, Object>> badRequest(String errorCode, String errorMessage, String userTip) {
-        return new ResVO<>(400, false, userTip, errorCode, errorMessage, Collections.emptyMap());
-    }
-
-    // 401 Unauthorized
-    protected ResVO<Map<String, Object>> unauthorized(String errorCode, String errorMessage, String userTip) {
-        return new ResVO<>(401, false, userTip, errorCode, errorMessage, Collections.emptyMap());
-    }
-
-    // 403 Forbidden
-    protected ResVO<Map<String, Object>> forbidden(String errorCode, String errorMessage, String userTip) {
-        return new ResVO<>(403, false, userTip, errorCode, errorMessage, Collections.emptyMap());
-    }
-
-    // 404 Not Found
-    protected ResVO<Map<String, Object>> notFound(String errorCode, String errorMessage, String userTip) {
-        return new ResVO<>(404, false, userTip, errorCode, errorMessage, Collections.emptyMap());
-    }
-
-    // 500 Internal Server Error
-    protected ResVO<Map<String, Object>> internalServerError(String errorCode, String errorMessage, String userTip) {
-        return new ResVO<>(500, false, userTip, errorCode, errorMessage, Collections.emptyMap());
-    }
-
-    // 503 Service Unavailable
-    protected ResVO<Map<String, Object>> serviceUnavailable(String errorCode, String errorMessage, String userTip) {
-        return new ResVO<>(503, false, userTip, errorCode, errorMessage, Collections.emptyMap());
+    protected ResVO error(String userTip, String errorCode, String errorMessage) {
+        return new ResVO()
+                .setCode(ResCodeEnum.CODE_200.getCode())
+                .setStatus(Constants.Status.FALSE)
+                .setUserTip(userTip)
+                .setErrorCode(errorCode)
+                .setErrorMessage(errorMessage)
+                .setData(Collections.emptyMap());
     }
 }

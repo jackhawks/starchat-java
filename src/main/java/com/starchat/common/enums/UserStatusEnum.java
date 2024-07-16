@@ -18,7 +18,7 @@ public enum UserStatusEnum {
     DO_NOT_DISTURB(10, "Do Not Disturb", "The user does not want to be disturbed."),
     IDLE(11, "Idle", "The user is idle for a period of time.");
 
-    private final int code;
-    private final String status;
+    private final Integer status;
     private final String description;
+    private final String explanation;
 }

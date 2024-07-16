@@ -21,3 +21,6 @@ decorator:
     p6spy:
       # 日志格式
       log-format: "\ntime:%(executionTime) || sql:%(sql)\n"
+my-config:
+  admin:
+    emails: test1@gmail.com, test2@gmail.com

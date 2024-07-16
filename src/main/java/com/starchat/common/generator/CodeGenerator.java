@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.starchat.controller.BaseController;
+import com.starchat.entity.BaseEntity;
 import org.apache.ibatis.type.JdbcType;
 
 import java.nio.file.Paths;
@@ -43,10 +44,11 @@ public class CodeGenerator {
                             builder.entityBuilder()
                                     .enableFileOverride()
                                     .javaTemplate("/templates/generator/entity.java")
-                                    .enableLombok()
+                                    .superClass(BaseEntity.class)
                                     .disableSerialVersionUID()
+//                                    .enableActiveRecord()
                                     .enableChainModel()
-                                    .enableActiveRecord();
+                                    .enableLombok();
                             builder.controllerBuilder()
 //                                    .enableFileOverride()
                                     .template("/templates/generator/controller.java")

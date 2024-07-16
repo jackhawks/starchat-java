@@ -14,7 +14,6 @@ public class Constants {
     public static final class Redis {
         public static final String KEY_CHECK_CODE = "starchat:check_code:";
 
-        // Default expiration times in seconds
         public static final long EXPIRE_TIME_10_SECONDS = 10;
         public static final long EXPIRE_TIME_30_SECONDS = 30;
         public static final long EXPIRE_TIME_1_MINUTE = 60;
@@ -41,5 +40,12 @@ public class Constants {
     @UtilityClass
     public static final class Length {
         public static final int _11 = 11;
+        public static final int _12 = 12;
+    }
+
+    @UtilityClass
+    public static final class Status {
+        public static final boolean TRUE = true;
+        public static final boolean FALSE = false;
     }
 }

@@ -3,8 +3,6 @@ package com.starchat.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
-import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -18,7 +16,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @TableName("user_vanity_number")
-public class UserVanityNumber extends Model<UserVanityNumber> {
+public class UserVanityNumber extends BaseEntity {
 
     /**
      * ID
@@ -40,9 +38,4 @@ public class UserVanityNumber extends Model<UserVanityNumber> {
      * 用户状态 (0: 未使用, 1: 已使用)
      */
     private Integer userStatus;
-
-    @Override
-    public Serializable pkVal() {
-        return this.id;
-    }
 }

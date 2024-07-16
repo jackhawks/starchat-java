@@ -16,6 +16,24 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
     </#if>
 </#if>
+<#assign needJsonFormat = false>
+<#assign needDateTimeFormat = false>
+<#list table.fields as field>
+    <#if field.propertyType == "Date" || field.propertyType == "LocalDateTime">
+        <#assign needJsonFormat = true>
+        <#assign needDateTimeFormat = true>
+    </#if>
+    <#if field.propertyType == "Date" || field.propertyType == "LocalDateTime">
+        <#assign needJsonFormat = true>
+        <#assign needDateTimeFormat = true>
+    </#if>
+</#list>
+<#if needJsonFormat>
+import com.fasterxml.jackson.annotation.JsonFormat;
+</#if>
+<#if needDateTimeFormat>
+import org.springframework.format.annotation.DateTimeFormat;
+</#if>
 
 /**
  * ${table.entityName!}
@@ -50,7 +68,6 @@ public class ${entity} {
 
     private static final long serialVersionUID = 1L;
 </#if>
-<#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>
     <#if field.keyFlag>
         <#assign keyPropertyName="${field.propertyName}"/>
@@ -89,6 +106,10 @@ public class ${entity} {
     </#if>
     <#if field.logicDeleteField>
     @TableLogic
+    </#if>
+    <#if field.propertyType == "Date" || field.propertyType == "LocalDateTime">
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     </#if>
     private ${field.propertyType} ${field.propertyName};
 </#list>

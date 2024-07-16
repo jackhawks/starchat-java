@@ -24,4 +24,8 @@
         id, user_id, password, nickname, email, bio, region_name, region_code, gender, join_type, user_status, last_login_time, last_offline_time, create_time, update_time
     </sql>
 
+    <select id="selectByEmail" resultType="com.starchat.entity.User">
+        select <include refid="Base_Column_List"/> from user email = #{email} limit 1
+    </select>
+
 </mapper>
