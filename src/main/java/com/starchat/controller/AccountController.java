@@ -1,13 +1,17 @@
 package com.starchat.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.ImmutableMap;
 import com.starchat.common.constants.Constants;
 import com.starchat.common.enums.ErrorCodeEnum;
+import com.starchat.entity.User;
 import com.starchat.entity.dto.TokenUserDto;
+import com.starchat.entity.mapping.UserMapper;
 import com.starchat.entity.vo.ResVO;
+import com.starchat.entity.vo.UserVO;
 import com.starchat.exception.BusinessException;
 import com.starchat.service.UserService;
-import com.starchat.service.redis.RedisService;
+import com.starchat.service.redis.RedisUtil;
 import com.wf.captcha.ArithmeticCaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +30,12 @@ import java.util.UUID;
 public class AccountController extends BaseController {
 
     private final UserService userService;
-    private final RedisService redisService;
+    private final RedisUtil redisUtil;
 
     @Autowired
-    public AccountController(UserService userService, RedisService redisService) {
+    public AccountController(UserService userService, RedisUtil redisUtil1) {
         this.userService = userService;
-        this.redisService = redisService;
+        this.redisUtil = redisUtil1;
     }
 
     @RequestMapping("/checkCode")
@@ -42,8 +46,8 @@ public class AccountController extends BaseController {
 
         String checkCodeKey = UUID.randomUUID().toString();
         String redisKey = Constants.Redis.KEY_CHECK_CODE + checkCodeKey;
-        long expireTime = Constants.Redis.EXPIRE_TIME_1_MINUTE;
-        redisService.setWithExpire(redisKey, code, expireTime);
+        long expireTime = Constants.Redis.EXPIRE_TIME_1_HOUR;
+        redisUtil.set(redisKey, code, expireTime);
 
         Map<String, Object> result = ImmutableMap.of(
                 Constants.Captcha.CHECK_CODE, checkCodeBase64,
@@ -59,29 +63,38 @@ public class AccountController extends BaseController {
                           String nickname,
                           String checkCode) {
         try {
-            if (!checkCode.equalsIgnoreCase(redisService.get(Constants.Redis.KEY_CHECK_CODE + checkCodeKey))) {
+            String checkCodeValue = redisUtil.get(Constants.Redis.KEY_CHECK_CODE + checkCodeKey, String.class);
+            if (!checkCode.equalsIgnoreCase(checkCodeValue)) {
                 throw new BusinessException(ErrorCodeEnum.ERROR_A0001);
             }
             userService.register(email, nickname, password);
             return success();
         } finally {
-            redisService.delete(Constants.Redis.KEY_CHECK_CODE + checkCodeKey);
+            redisUtil.delete(Constants.Redis.KEY_CHECK_CODE + checkCodeKey);
         }
     }
 
     @RequestMapping(value = "/login")
     public ResVO login(String checkCodeKey,
-                          String email,
-                          String password,
-                          String checkCode) {
+                       String email,
+                       String password,
+                       String checkCode) {
         try {
-            if (!checkCode.equalsIgnoreCase(redisService.get(Constants.Redis.KEY_CHECK_CODE + checkCodeKey))) {
+            String checkCodeValue = redisUtil.get(Constants.Redis.KEY_CHECK_CODE + checkCodeKey, String.class);
+            if (!checkCode.equalsIgnoreCase(checkCodeValue)) {
                 throw new BusinessException(ErrorCodeEnum.ERROR_A0001);
             }
             TokenUserDto tokenUserDto = userService.login(email, password);
-            return success(tokenUserDto);
+
+            User user = userService.getOne(new LambdaQueryWrapper<User>()
+                    .eq(User::getUserId, tokenUserDto.getUserId()));
+
+            UserVO userVO = UserMapper.INSTANCE.userToUserVO(user);
+            userVO.setToken(tokenUserDto.getToken());
+            userVO.setAdmin(tokenUserDto.getAdmin());
+            return success(userVO);
         } finally {
-            redisService.delete(Constants.Redis.KEY_CHECK_CODE + checkCodeKey);
+            redisUtil.delete(Constants.Redis.KEY_CHECK_CODE + checkCodeKey);
         }
     }
 }

@@ -39,6 +39,7 @@ dependencies {
     implementation("org.apache.commons:commons-collections4:4.5.0-M2")
     implementation("commons-codec:commons-codec:1.17.0")
     implementation("commons-io:commons-io:2.16.1")
+    implementation("org.mapstruct:mapstruct:1.5.5.Final")
     compileOnly("org.projectlombok:lombok")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")

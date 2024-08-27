@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TokenUserDto implements Serializable {
-    private String token;
     private String userId;
+    private String token;
     private String nickname;
     private Boolean admin;
 }

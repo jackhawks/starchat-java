@@ -10,4 +10,8 @@ public class BusinessException extends RuntimeException {
     public BusinessException(ErrorCodeEnum codeEnum) {
         super(codeEnum.getDescription());
     }
+
+    public BusinessException(String message) {
+        super(message);
+    }
 }

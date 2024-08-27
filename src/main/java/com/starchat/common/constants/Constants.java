@@ -13,6 +13,10 @@ public class Constants {
     @UtilityClass
     public static final class Redis {
         public static final String KEY_CHECK_CODE = "starchat:check_code:";
+        public static final String KEY_WS_USER_HEARTBEAT = "starchat:ws:user:heartbeat";
+        public static final String KEY_WS_TOKEN = "starchat:ws:token:";
+        public static final String KEY_WS_TOKEN_USERID = "starchat:ws:token:userid";
+
 
         public static final long EXPIRE_TIME_10_SECONDS = 10;
         public static final long EXPIRE_TIME_30_SECONDS = 30;
@@ -40,7 +44,7 @@ public class Constants {
     @UtilityClass
     public static final class Length {
         public static final int _11 = 11;
-        public static final int _12 = 12;
+        public static final int _20 = 20;
     }
 
     @UtilityClass
